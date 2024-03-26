@@ -1,6 +1,6 @@
-const lisrController = {
+const listController = {
   getUserHome: (req, res) => {
-    return res.render('login')
+    return res.render('userhome')
   }
 }
 module.exports = listController
