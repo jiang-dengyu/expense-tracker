@@ -1,0 +1,30 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiang-dengyu/expense-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiang-dengyu/expense-tracker/issues"
+  },
+  "homepage": "https://github.com/jiang-dengyu/expense-tracker#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-handlebars": "^5.3.3",
+    "mysql2": "^3.2.0",
+    "nodemon": "^2.0.12",
+    "sequelize": "^6.30.0",
+    "sequelize-cli": "^6.6.0"
+  }
+}
