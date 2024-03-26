@@ -4,5 +4,5 @@ const userController = require('../controllers/user-controller')
 
 router.get('/login', userController.login)
 
-router.use('/', (req, res) => res.redirect('/restaurants'))
+router.use('/', (req, res) => res.redirect('/login'))
 module.exports = router
