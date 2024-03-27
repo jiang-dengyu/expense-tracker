@@ -20,7 +20,7 @@
     <tbody>
       {{#each lists}}
       <tr>
-        <td>{{this.category}}</td>
+        <td>category</td>
         <td>{{this.date}}</td>
         <td>{{this.name}}</td>
         <td>{{this.price}}</td>
@@ -30,7 +30,7 @@
               <button type="button"class="btn btn-warning btn-block">Edit</button>
             </a>
           </button>
-          <form action="#?_method=DELETE" method="POST" style="display: inline;">
+          <form action="/delete/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
             <button type="submit" class="btn btn-danger"
               onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
           </form>

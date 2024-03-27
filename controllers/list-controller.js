@@ -31,7 +31,6 @@ const listController = {
     List.create({
       name: newlist.name,
       price: newlist.price,
-      category: newlist.category,
       date: newlist.date
     })
       .then(() => {
@@ -75,7 +74,6 @@ const listController = {
         if (!list) throw new Error('查無資料')
         return list.update({
           name: editlist.name,
-          catgoery: editlist.category,
           price: editlist.price,
           date: editlist.date
         })
@@ -84,6 +82,19 @@ const listController = {
         req.flash('success_messages', '成功編輯！')
         return res.redirect('/userhome')
       })
+  },
+  deleteList: (req, res, next) => {
+    const listId = req.params.listId
+    return List.findByPk(listId)
+      .then((list) => {
+        if (!list) throw new Error("List didn't exist!")
+        return list.destroy()
+      })
+      .then(() => {
+        req.flash('success_messages', '成功刪除！')
+        res.redirect('/userhome')
+      })
+      .catch((err) => next(err))
   }
 }
 module.exports = listController

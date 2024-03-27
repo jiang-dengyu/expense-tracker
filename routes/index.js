@@ -17,6 +17,7 @@ router.get('/create', authenticated, listController.createListPage)
 router.post('/create', authenticated, listController.createList)
 router.get('/edit/:listId', authenticated, listController.editListPage)
 router.put('/edit/:listId', authenticated, listController.putList)
+router.delete('/delete/:listId', authenticated, listController.deleteList)
 router.use('/', (req, res) => res.redirect('/login'))
 router.use('/', generalErrorHandler)
 module.exports = router
