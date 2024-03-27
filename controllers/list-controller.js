@@ -15,7 +15,7 @@ const listController = {
         nest: true,
         raw: true
       }),
-      List.sum('price'),
+      List.sum('price', { userId: userId, where: where }),
       Category.findAll({
         raw: true
       })
