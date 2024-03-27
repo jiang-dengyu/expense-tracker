@@ -1,0 +1,39 @@
+<div class="mx-auto" style="max-width: 800px;">
+  <form action="/create" method="POST">
+    <div class="mb-4 text-center">
+      <h1 class="h3 font-weight-normal mb-3">請輸入您的支出</h1>
+      <h6 class="h3 font-weight-normal mb-3">*為必填欄位</h6>
+    </div>
+    
+    <div class="form-row mb-3">
+      <label class="form-label" for="category">Category*</label>
+      <select class="form-control" id="category" name="category">
+        <option>食</option>
+        <option>衣</option>
+        <option>住</option>
+        <option>行</option>
+        <option>樂</option>
+      </select>
+    </div>
+
+    <div class="form-row mb-3">
+      <label class="form-label" for="name">項目名稱*</label>
+      <input class="form-control" type="text" name="name" id="name" placeholder="Enter name" value="預設項目名稱" required>
+    </div>
+
+    <div class="form-row mb-3">
+      <label class="form-label" for="date">日期*</label>
+      <input class="form-control" type="date" name="date" id="date" placeholder="Enter date"
+        value="預設日期" required>
+    </div>
+
+    <div class="form-row mb-3">
+      <label class="form-label" for="price">價格*</label>
+      <input class="form-control" type="number" name="price" id="price" placeholder="Enter price"
+        value="10000000" required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
+  </form>
+</div>

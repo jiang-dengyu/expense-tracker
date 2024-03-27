@@ -13,6 +13,8 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
 router.get('/logout', userController.logout)
 
 router.get('/userhome', authenticated, listController.getUserHome)
+router.get('/create', authenticated, listController.createListPage)
+router.post('/create', authenticated, listController.createList)
 router.use('/', (req, res) => res.redirect('/login'))
 router.use('/', generalErrorHandler)
 module.exports = router
