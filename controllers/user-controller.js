@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs')
 /**************************************************************** */
 const userController = {
   signUpPage: (req, res) => {
-    console.log('斷點1')
     return res.render('signup')
   },
   signUp: (req, res, next) => {
@@ -27,18 +26,15 @@ const userController = {
         })
       })
       .then(() => {
-        console.log('斷點2')
         req.flash('success_messages', '成功註冊帳號！')
         res.redirect('/login')
       })
       .catch((err) => next(err))
   },
   loginPage: (req, res) => {
-    console.log('斷點3')
     return res.render('login')
   },
   login: (req, res) => {
-    console.log('斷點4')
     req.flash('success_messages', '成功登入！')
     res.redirect('/userhome')
   },
