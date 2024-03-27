@@ -1,13 +1,12 @@
 <div class="dropdown">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+    aria-expanded="false">
     分類
-  </a>
-
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">食</a></li>
-    <li><a class="dropdown-item" href="#">衣</a></li>
-    <li><a class="dropdown-item" href="#">住</a></li>
-    <li><a class="dropdown-item" href="#">行</a></li>
-    <li><a class="dropdown-item" href="#">樂</a></li>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="?categoryId=">全部</a></li>
+    {{#each categories}}  
+      <li><a class="dropdown-item" href="?categoryId={{this.id}}">{{this.name}}</a></li>
+    {{/each}}
   </ul>
 </div>

@@ -9,9 +9,10 @@ const SESSION_SECRET = 'secret'
 const passport = require('./config/passport')
 const { getUser } = require('./helpers/auth-helpers')
 const methodOverride = require('method-override')
+const handlebarsHelpers = require('./helpers/handlebars-helpers')
 
 app.use(express.urlencoded({ extended: true }))
-app.engine('hbs', handlebars({ extname: '.hbs' }))
+app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true })) //讓res.body能夠使用(bodyparser)
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })) //設定session資訊

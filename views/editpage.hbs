@@ -8,8 +8,9 @@
     <div class="form-row mb-3">
       <label class="form-label" for="category">Category*</label>
       <select class="form-control" id="category" name="categoryId">
+        
         {{#each categories}}
-        <option value="{{this.id}}">{{this.name}}</option>
+        <option value="{{this.id}}"　{{#ifCond this.id ../list.categoryId}} selected {{/ifCond}}>{{this.name}}</option>
         {{/each}}
       </select>
     </div>

@@ -4,14 +4,24 @@ const { List, User, Category } = db
 const listController = {
   getUserHome: (req, res, next) => {
     const userId = req.user.id
-    List.findAll({
-      where: { userId: userId },
-      include: [Category],
-      nest: true,
-      raw: true
-    })
-      .then((lists) => {
-        return res.render('userhome', { lists })
+    const categoryId = Number(req.query.categoryId) || ''
+    const where = {}
+    if (categoryId) where.categoryId = categoryId
+
+    Promise.all([
+      List.findAll({
+        where: { userId: userId, ...where },
+        include: [Category],
+        nest: true,
+        raw: true
+      }),
+      List.sum('price'),
+      Category.findAll({
+        raw: true
+      })
+    ])
+      .then(([lists, totalPrice, categories]) => {
+        return res.render('userhome', { lists, totalPrice, categories, categoryId })
       })
       .catch((err) => next(err))
   },
