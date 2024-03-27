@@ -3,7 +3,9 @@ const { List } = db
 /******************************************* */
 const listController = {
   getUserHome: (req, res, next) => {
+    const userId = req.user.id
     List.findAll({
+      where: { id: userId },
       raw: true
     })
       .then((lists) => {
@@ -15,6 +17,7 @@ const listController = {
     return res.render('createpage')
   },
   createList: (req, res, next) => {
+    const userId = req.user.id
     const newlist = req.body //表單會有name price category date
     const requiredFields = ['name', 'price', 'category', 'date']
     const missingFields = requiredFields.filter((field) => {
@@ -31,7 +34,8 @@ const listController = {
     List.create({
       name: newlist.name,
       price: newlist.price,
-      date: newlist.date
+      date: newlist.date,
+      userId: userId
     })
       .then(() => {
         req.flash('success_messages', '成功新增！')
@@ -40,14 +44,17 @@ const listController = {
       .catch((err) => next(err))
   },
   editListPage: (req, res, next) => {
-    console.log('斷點1')
     const listId = req.params.listId
+    const userId = req.user.id
+    if (listId !== userId) {
+      req.flash('error_messages', '沒有訪問權限！')
+      return res.redirect('/userhome')
+    }
     List.findOne({
       where: { id: listId },
       raw: true
     })
       .then((list) => {
-        console.log('斷點2', list)
         return res.render('editpage', { list })
       })
       .catch((err) => next(err))
@@ -66,7 +73,6 @@ const listController = {
     if (missingFields.length > 0) {
       return next(new Error('每個內容都必填'))
     }
-    console.log('斷點3')
     List.findOne({
       where: { id: listId }
     })

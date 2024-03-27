@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      List.belongsTo(models.User, { foreignKey: 'userId' })
     }
   }
   List.init(
@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       date: DataTypes.STRING,
       price: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER
     },
     {
       sequelize,
