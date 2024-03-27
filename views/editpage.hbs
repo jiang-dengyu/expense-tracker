@@ -7,12 +7,10 @@
 
     <div class="form-row mb-3">
       <label class="form-label" for="category">Category*</label>
-      <select class="form-control" id="category" name="category">
-        <option>食</option>
-        <option>衣</option>
-        <option>住</option>
-        <option>行</option>
-        <option>樂</option>
+      <select class="form-control" id="category" name="categoryId">
+        {{#each categories}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
       </select>
     </div>
 

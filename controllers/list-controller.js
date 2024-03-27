@@ -16,12 +16,19 @@ const listController = {
       .catch((err) => next(err))
   },
   createListPage: (req, res, next) => {
-    return res.render('createpage')
+    Category.findAll({
+      raw: true
+    })
+      .then((categories) => {
+        return res.render('createpage', { categories })
+      })
+      .catch((err) => next(err))
   },
   createList: (req, res, next) => {
     const userId = req.user.id
     const newlist = req.body //表單會有name price category date
-    const requiredFields = ['name', 'price', 'category', 'date']
+    console.log('斷點newlist', newlist)
+    const requiredFields = ['name', 'price', 'categoryId', 'date']
     const missingFields = requiredFields.filter((field) => {
       if (!newlist.hasOwnProperty(field) || !newlist[field]) {
         return true
@@ -37,7 +44,8 @@ const listController = {
       name: newlist.name,
       price: newlist.price,
       date: newlist.date,
-      userId: userId
+      userId: userId,
+      categoryId: newlist.categoryId
     })
       .then(() => {
         req.flash('success_messages', '成功新增！')
@@ -49,23 +57,21 @@ const listController = {
     const listId = req.params.listId
     const userId = req.user.id
 
-    List.findOne({
-      where: { id: listId },
-      raw: true
-    })
-      .then((list) => {
+    Promise.all([List.findByPk(listId, { raw: true }), Category.findAll({ raw: true })])
+      .then(([list, categories]) => {
         if (list.userId !== userId) {
           req.flash('error_messages', '沒有訪問權限！')
           return res.redirect('/userhome')
         }
-        return res.render('editpage', { list })
+        return res.render('editpage', { list, categories })
       })
       .catch((err) => next(err))
   },
   putList: (req, res, next) => {
+    const userId = req.user.id
     const listId = req.params.listId
     const editlist = req.body
-    const requiredFields = ['name', 'price', 'category', 'date']
+    const requiredFields = ['name', 'price', 'categoryId', 'date']
     const missingFields = requiredFields.filter((field) => {
       if (!editlist.hasOwnProperty(field) || !editlist[field]) {
         return true
@@ -84,7 +90,9 @@ const listController = {
         return list.update({
           name: editlist.name,
           price: editlist.price,
-          date: editlist.date
+          date: editlist.date,
+          userId: userId,
+          categoryId: editlist.categoryId
         })
       })
       .then(() => {
