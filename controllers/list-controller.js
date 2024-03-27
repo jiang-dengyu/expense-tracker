@@ -7,7 +7,6 @@ const listController = {
       raw: true
     })
       .then((lists) => {
-        console.log(lists)
         return res.render('userhome', { lists })
       })
       .catch((err) => next(err))
@@ -17,9 +16,14 @@ const listController = {
   },
   createList: (req, res, next) => {
     const newlist = req.body //表單會有name price category date
-    console.log(newlist)
     const requiredFields = ['name', 'price', 'category', 'date']
-    const missingFields = requiredFields.filter((field) => !newlist[field])
+    const missingFields = requiredFields.filter((field) => {
+      if (!newlist.hasOwnProperty(field) || !newlist[field]) {
+        return true
+      } else {
+        return false
+      }
+    })
     if (missingFields.length > 0) {
       return next(new Error('每個內容都必填'))
     }
@@ -31,9 +35,55 @@ const listController = {
       date: newlist.date
     })
       .then(() => {
+        req.flash('success_messages', '成功新增！')
         return res.redirect('/userhome')
       })
       .catch((err) => next(err))
+  },
+  editListPage: (req, res, next) => {
+    console.log('斷點1')
+    const listId = req.params.listId
+    List.findOne({
+      where: { id: listId },
+      raw: true
+    })
+      .then((list) => {
+        console.log('斷點2', list)
+        return res.render('editpage', { list })
+      })
+      .catch((err) => next(err))
+  },
+  putList: (req, res, next) => {
+    const listId = req.params.listId
+    const editlist = req.body
+    const requiredFields = ['name', 'price', 'category', 'date']
+    const missingFields = requiredFields.filter((field) => {
+      if (!editlist.hasOwnProperty(field) || !editlist[field]) {
+        return true
+      } else {
+        return false
+      }
+    })
+    if (missingFields.length > 0) {
+      return next(new Error('每個內容都必填'))
+    }
+    console.log('斷點3')
+    List.findOne({
+      where: { id: listId }
+    })
+      .then((list) => {
+        if (!list) throw new Error('查無資料')
+        return list.update({
+          name: editlist.name,
+          catgoery: editlist.category,
+          price: editlist.price,
+          date: editlist.date
+        })
+      })
+      .then(() => {
+        req.flash('success_messages', '成功編輯！')
+        return res.redirect('/userhome')
+      })
   }
 }
 module.exports = listController

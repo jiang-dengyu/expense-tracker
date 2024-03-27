@@ -9,9 +9,9 @@ const userController = {
   },
   signUp: (req, res, next) => {
     const newuser = req.body
-    console.log(newuser)
     if (!newuser.email) throw new Error('email必填')
     if (newuser.password !== newuser.passwordCheck) throw new Error('password請重新確認')
+    
     User.findOne({
       where: { email: newuser.email }
     })
