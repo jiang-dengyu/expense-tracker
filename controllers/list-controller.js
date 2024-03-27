@@ -1,11 +1,13 @@
 const db = require('../models')
-const { List } = db
+const { List, User, Category } = db
 /******************************************* */
 const listController = {
   getUserHome: (req, res, next) => {
     const userId = req.user.id
     List.findAll({
-      where: { id: userId },
+      where: { userId: userId },
+      include: [Category],
+      nest: true,
       raw: true
     })
       .then((lists) => {
@@ -46,15 +48,16 @@ const listController = {
   editListPage: (req, res, next) => {
     const listId = req.params.listId
     const userId = req.user.id
-    if (listId !== userId) {
-      req.flash('error_messages', '沒有訪問權限！')
-      return res.redirect('/userhome')
-    }
+
     List.findOne({
       where: { id: listId },
       raw: true
     })
       .then((list) => {
+        if (list.userId !== userId) {
+          req.flash('error_messages', '沒有訪問權限！')
+          return res.redirect('/userhome')
+        }
         return res.render('editpage', { list })
       })
       .catch((err) => next(err))
