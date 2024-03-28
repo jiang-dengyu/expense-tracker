@@ -37,7 +37,7 @@
 1. 先將此專案 Clone 到本地電腦:
 
 ```
-git clone https://github.com/kim1037/AC-expense-tracker.git
+git clone https://github.com/jiang-dengyu/expense-tracker
 ```
 
 2. 開啟終端機(Terminal)(windows 需用 cmd, shell 似乎不能)，進入此專案的資料夾
