@@ -20,7 +20,10 @@
     <tbody>
       {{#each lists}}
       <tr>
-        <td><i class="fa-solid fa-house"></i>{{this.Category.name}}</td>
+        <td style="display: flex; align-items: center;">
+          <i class="{{this.Category.img}}" style="flex: 1;"></i>
+          <span style="flex: 1;">{{this.Category.name}}</span>
+        </td>
         <td>{{this.date}}</td>
         <td>{{this.name}}</td>
         <td>{{this.price}}</td>

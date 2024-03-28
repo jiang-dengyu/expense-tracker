@@ -11,11 +11,16 @@ const { getUser } = require('./helpers/auth-helpers')
 const methodOverride = require('method-override')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+console.log(process.env.NODE_ENV)
+console.log(process.env.SESSION_SECRET)
 app.use(express.urlencoded({ extended: true }))
 app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true })) //讓res.body能夠使用(bodyparser)
-app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })) //設定session資訊
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false })) //設定session資訊
 app.use(passport.initialize()) //初始化 Passport
 app.use(passport.session()) //啟動 session 功能
 app.use(flash()) // 掛載套件
