@@ -1,5 +1,6 @@
 const db = require('../models')
 const { List, User, Category } = db
+const { missingFields } = require('../helpers/list-helpers')
 /******************************************* */
 const listController = {
   getUserHome: (req, res, next) => {
@@ -38,14 +39,9 @@ const listController = {
     const userId = req.user.id
     const newlist = req.body //表單會有name price category date
     const requiredFields = ['name', 'price', 'categoryId', 'date']
-    const missingFields = requiredFields.filter((field) => {
-      if (!newlist.hasOwnProperty(field) || !newlist[field]) {
-        return true
-      } else {
-        return false
-      }
-    })
-    if (missingFields.length > 0) {
+
+    const results = missingFields(newlist, requiredFields)
+    if (results.length > 0) {
       return next(new Error('每個內容都必填'))
     }
 
