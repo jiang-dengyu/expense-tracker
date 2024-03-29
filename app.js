@@ -14,8 +14,8 @@ const handlebarsHelpers = require('./helpers/handlebars-helpers')
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
-console.log(process.env.NODE_ENV)
-console.log(process.env.SESSION_SECRET)
+//console.log(process.env.NODE_ENV)
+//console.log(process.env.SESSION_SECRET)
 app.use(express.urlencoded({ extended: true }))
 app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')

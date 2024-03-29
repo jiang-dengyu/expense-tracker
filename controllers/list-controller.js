@@ -37,7 +37,6 @@ const listController = {
   postCreate: (req, res, next) => {
     const userId = req.user.id
     const newlist = req.body //表單會有name price category date
-    console.log('斷點newlist', newlist)
     const requiredFields = ['name', 'price', 'categoryId', 'date']
     const missingFields = requiredFields.filter((field) => {
       if (!newlist.hasOwnProperty(field) || !newlist[field]) {
