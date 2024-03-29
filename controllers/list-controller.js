@@ -25,7 +25,7 @@ const listController = {
       })
       .catch((err) => next(err))
   },
-  createListPage: (req, res, next) => {
+  getCreatePage: (req, res, next) => {
     Category.findAll({
       raw: true
     })
@@ -34,7 +34,7 @@ const listController = {
       })
       .catch((err) => next(err))
   },
-  createList: (req, res, next) => {
+  postCreate: (req, res, next) => {
     const userId = req.user.id
     const newlist = req.body //表單會有name price category date
     console.log('斷點newlist', newlist)
@@ -59,11 +59,11 @@ const listController = {
     })
       .then(() => {
         req.flash('success_messages', '成功新增！')
-        return res.redirect('/userhome')
+        return res.redirect('/lists/userhome')
       })
       .catch((err) => next(err))
   },
-  editListPage: (req, res, next) => {
+  getEditPage: (req, res, next) => {
     const listId = req.params.listId
     const userId = req.user.id
 
@@ -77,7 +77,7 @@ const listController = {
       })
       .catch((err) => next(err))
   },
-  putList: (req, res, next) => {
+  putEdit: (req, res, next) => {
     const userId = req.user.id
     const listId = req.params.listId
     const editlist = req.body
@@ -107,7 +107,7 @@ const listController = {
       })
       .then(() => {
         req.flash('success_messages', '成功編輯！')
-        return res.redirect('/userhome')
+        return res.redirect('/lists/userhome')
       })
   },
   deleteList: (req, res, next) => {
@@ -119,7 +119,7 @@ const listController = {
       })
       .then(() => {
         req.flash('success_messages', '成功刪除！')
-        res.redirect('/userhome')
+        res.redirect('/lists/userhome')
       })
       .catch((err) => next(err))
   }

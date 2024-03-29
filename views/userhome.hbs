@@ -29,11 +29,11 @@
         <td>{{this.price}}</td>
         <td>
           <button type="button" class="btn btn-link">
-            <a class="btn btn-link link-primary" href="/edit/{{ this.id }}">
+            <a class="btn btn-link link-primary" href="/lists/edit/{{ this.id }}">
               <button type="button"class="btn btn-warning btn-block">Edit</button>
             </a>
           </button>
-          <form action="/delete/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <form action="/lists/delete/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
             <button type="submit" class="btn btn-danger"
               onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
           </form>
@@ -44,7 +44,7 @@
   </table>
 
   <div class="container-fluid  d-flex justify-content-center">
-    <a class="btn btn-link link-primary" href="/create">
+    <a class="btn btn-link link-primary" href="/lists/create">
       <button class="btn btn-secondary btn-block">新增支出</button>
     </a>
   </div>

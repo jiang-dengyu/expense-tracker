@@ -4,14 +4,14 @@ const bcrypt = require('bcryptjs')
 
 /**************************************************************** */
 const userController = {
-  signUpPage: (req, res) => {
+  getSignUpPage: (req, res) => {
     return res.render('signup')
   },
-  signUp: (req, res, next) => {
+  postSignUp: (req, res, next) => {
     const newuser = req.body
     if (!newuser.email) throw new Error('email必填')
     if (newuser.password !== newuser.passwordCheck) throw new Error('password請重新確認')
-    
+
     User.findOne({
       where: { email: newuser.email }
     })
@@ -27,21 +27,21 @@ const userController = {
       })
       .then(() => {
         req.flash('success_messages', '成功註冊帳號！')
-        res.redirect('/login')
+        res.redirect('/user/login')
       })
       .catch((err) => next(err))
   },
-  loginPage: (req, res) => {
+  getLoginPage: (req, res) => {
     return res.render('login')
   },
-  login: (req, res) => {
+  postLogin: (req, res) => {
     req.flash('success_messages', '成功登入！')
-    res.redirect('/userhome')
+    res.redirect('/lists/userhome')
   },
-  logout: (req, res) => {
+  getLogout: (req, res) => {
     req.flash('success_messages', '登出成功！')
     req.logout()
-    res.redirect('/login')
+    res.redirect('/user/login')
   }
 }
 /************************************************************* */
