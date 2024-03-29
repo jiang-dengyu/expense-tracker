@@ -54,16 +54,16 @@ git clone https://github.com/jiang-dengyu/expense-tracker
 cd expense-tracker
 ```
 
-3. 使用 npm install指令，安裝 package.json 當中顯示的套件
+3. 使用 npm install 指令，安裝 package.json 當中顯示的套件
 
 ```
 npm install
 ```
 
 4. 設置.env 檔
-   修改 `.env.example` 成 .env，並將內容改成您的資訊
+   修改 `.env.example` 成 .env，並將內容(SESSION_SECRECT)改成您的資訊
 
-5. 匯入種子檔案
+5. 確認 config.json 中，development 的"username""password"與本地 mysql 相符，並在 mysql workbench 中新增 money 資料庫,最後執行 npm run sedd 匯入種子檔案
 
 ```
 npm run seed

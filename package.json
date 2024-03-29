@@ -7,7 +7,7 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed":"node seeders/1-categorySeeder.js && node seeders/2-recordSeeder.js"
+    "seed":"npx sequelize db:sedd:all"
   },
   "repository": {
     "type": "git",
