@@ -54,10 +54,10 @@ git clone https://github.com/jiang-dengyu/expense-tracker
 cd expense-tracker
 ```
 
-3. 安裝所需套件 - 請參見 package.json
+3. 使用 npm install指令，安裝 package.json 當中顯示的套件
 
 ```
-npm i [套件名稱]
+npm install
 ```
 
 4. 設置.env 檔
