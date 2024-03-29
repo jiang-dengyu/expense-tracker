@@ -8,7 +8,7 @@ const listController = {
     const where = {}
     if (categoryId) where.categoryId = categoryId
 
-    Promise.all([
+    return Promise.all([
       List.findAll({
         where: { userId: userId, ...where },
         include: [Category],
@@ -26,7 +26,7 @@ const listController = {
       .catch((err) => next(err))
   },
   getCreatePage: (req, res, next) => {
-    Category.findAll({
+    return Category.findAll({
       raw: true
     })
       .then((categories) => {
@@ -49,7 +49,7 @@ const listController = {
       return next(new Error('每個內容都必填'))
     }
 
-    List.create({
+    return List.create({
       name: newlist.name,
       price: newlist.price,
       date: newlist.date,
@@ -91,7 +91,7 @@ const listController = {
     if (missingFields.length > 0) {
       return next(new Error('每個內容都必填'))
     }
-    List.findOne({
+    return List.findOne({
       where: { id: listId }
     })
       .then((list) => {

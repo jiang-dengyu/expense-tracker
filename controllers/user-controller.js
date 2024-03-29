@@ -12,13 +12,13 @@ const userController = {
     if (!newuser.email) throw new Error('email必填')
     if (newuser.password !== newuser.passwordCheck) throw new Error('password請重新確認')
 
-    User.findOne({
+    return User.findOne({
       where: { email: newuser.email }
     })
       .then((u) => {
         if (u) throw new Error('email已經被註冊')
         return bcrypt.hash(newuser.password, 10).then((hash) => {
-          User.create({
+          return User.create({
             name: newuser.name,
             email: newuser.email,
             password: hash
